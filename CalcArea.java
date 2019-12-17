@@ -1,23 +1,13 @@
-Circle.java
-public class Circle implements CalcArea
+interface Area
 {
-	double r;
-	Circle(double r)
-	{
-		this.r = r;
-	}
-	public double getArea()
-	{
-		return Math.PI*r*r;
-	}
+	double getArea();
 }
-
-Rectangle.java
-public class Rectangle implements CalcArea
+class Rectangle implements Area
 {
-	double l;
-	double w;
-	Rectangle(double l, double w)
+	public double l;
+	public double w;
+	
+	public Rectangle(double l, double w)
 	{
 		this.l = l;
 		this.w = w;
@@ -26,27 +16,35 @@ public class Rectangle implements CalcArea
 	{
 		return l * w;
 	}
-}
-
-CalcArea.java
-public interface CalcArea
-{
-	double getArea();
-}
-
-Tester.java
-public class Tester {
-	static CalcArea[] shapes = {new Circle(1.0), new Rectangle(3.0, 4.0), new Circle(8.0)};
 	
+}
+class Circle implements Area
+{
+	public double r;
+	
+	public Circle(double r)
+	{
+		this.r = r;
+	}
+	public double getArea()
+	{
+		return Math.PI * r * r;
+	}
+}
+public class Test {
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("total area = " + sumArea(shapes));
-	}
-	public static double sumArea(CalcArea[] shapes)
+		Area[] a = {new Circle(1.0), new Rectangle(3.0, 4.0), new Circle(8.0)};
+		System.out.println("total area = " + totalArea(a));
+		}
+	public static double totalArea(Area[] a)
 	{
 		double sum = 0;
-		for(CalcArea c: shapes)
-			sum += c.getArea();
+		for(Area e : a)
+		{
+			sum += e.getArea();
+		}
 		return sum;
 	}
 
